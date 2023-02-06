@@ -11,8 +11,8 @@ while True:
 
     while dzivibas > 0 and not "".join(minetaisVards) == vards:
         inp = input("Ievade: ")
+        if len(inp) == 0: continue
         inp = inp[0]
-        # TODO: garuma pārbaude
 
         uzminets = False
         for iii in range(0, len(vards)):
