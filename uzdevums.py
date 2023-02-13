@@ -9,4 +9,4 @@
 #7. Jānodrošina priekšmetu un atzīmju dzēšana
 
 vardnica = { "prieksmeta_nos" : []}
-vardnica["prieksmets2"] = []
+vardnica["prieksmets2"] = [] 
