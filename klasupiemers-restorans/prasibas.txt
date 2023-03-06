@@ -1,0 +1,21 @@
+Programmas prasības:
+1. Programma simulē Restorānu
+2. Restorānam ir darbinieki
+2.1. Pavāri
+2.2. Viesmīļi
+2.2.1. Viesmīļiem var tikt dota dzeramnauda
+2.3. Darbiniekiem ir algas
+3. Pavāri gatavo ēdienu
+3.1. Ēdiens sastāv no sastāvdaļām
+3.2. Sastāvdaļām ir sava izmaksa
+3.2.1. Jānosaka kopējā ēdiena izmaksas
+3.3. Ēdienu gatavo izmantojot receptes
+3.4. Virtuvē sastāvdaļu skaits ir ierobežots
+4. Klienti pērk ēdienu, kuru sagatavo virtuvē
+4.1. Klientam ir ierobežota nauda, kuru var lietot
+
+1. Izveidot klašu grafiku. 
+Grafiku taisīt: draw.io
+2. Pārveidot grafiku kodā.
+int == 4
+float == 4.0
