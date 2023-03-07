@@ -1,0 +1,1 @@
+Failus ar .drawio paplašinājumu var atvērt vietnē https://app.diagrams.net/
