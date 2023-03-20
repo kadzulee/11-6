@@ -4,11 +4,12 @@ Nosacījumi:
 1.1. Grupu darba gadījumā jāiesniedz darbs abiem, pierakstot, ka ir strādājis kopā ar noteiktu cilvēku.
 1.2. Ja vienu darbu iesniegs vairāki cilvēki (ja strādā individuāli), vai vairāk par diviem cilvēkiem (ja strādā grupā) - visiem iesaistītajiem tiks izlikta atzīme 1.
 2. Jāizdomā kāda reālistiska tēma, kurā savstarpēji notiek mijiedarbība starp dažādiem objektiem. Jāizdomā kāda darbība, kura jāveic jūsu programmai. Praktiski - simulācija kādai darbībai vidē.
-2.1. Piemērs ir restorāns, kuru apskatījām klasē, un kas ir pieejama https://github.com/idmelkis/11-4/tree/master/klasupiemers-restorans. 
+2.1. Piemērs ir restorāns, kuru apskatījām klasē, un kas ir pieejama https://github.com/idmelkis/11-6/tree/master/klasupiemers-restorans. 
 2.1.1. Šajā gadījumā tēma ir restorāns.
 2.1.2. Darbība, kas ir jāveic - Klientam ir pieejama noteikta naudas summa, klients nopērk ēdienu. Restorāns aprēķina izmaksas pasūtījumam.
 2.1.3. Jāpiemin, ka restorāna tēma vairs nav pieejama.
-3. Jāizstrādā klašu diagramma līdzīgu piemēram, kas ir pieejams https://github.com/idmelkis/11-4/blob/master/klasupiemers-restorans/Klases.drawio. Lai atvērtu diagrammu, novelkat failu un atverat viņu https://app.diagrams.net/
+3. Jāizstrādā klašu diagramma līdzīgu piemēram, kas ir pieejams https://github.com/idmelkis/11-6/blob/master/klasupiemers-restorans/Klases.drawio.
+    Lai atvērtu diagrammu, novelkat failu un atverat viņu https://app.diagrams.net/
 3.1. Klašu diagrammā jāattēlo visi iesaistītie objekti (klases)
 3.1.1. Restorāna gadījumā tas bija pats restorāns, darbinieki, klients, ēdiens, tā sastāvdaļas.
 3.2. Klašu diagrammā jāattēlo visi mainīgie kas ir saistīti ar šīm klasēm. Šiem mainīgajiem vajag norādīt arī datu tipu (int - skaitlis, float - daļskaitlis, list - saraksts (masīvs), dict - vārdnīca, bool - True/False...).
