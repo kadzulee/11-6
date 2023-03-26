@@ -48,3 +48,188 @@ Vērtēšana:
 3. Es neskatīšos uz koda stilu (manos piemēros klašu mainīgie sākas ar apakšsvītru, funkciju nosaukimi ir ar lielo burtu, bet to parametri- ar mazo).
 
 Kopā: 10b
+kods:
+class Slimnica:
+    darbinieki: 'list[Darbinieks]'
+    telpa = 'Telpa'
+    def __init__ (self, telpa:'Telpa') -> None:
+        self.darbinieki = []
+        self.telpa = telpa
+    def AprekinamAlgas(self) -> float:
+        alga = 0.0
+        for darbinieks in self.darbinieki:
+            alga += darbinieks.IzvadamAlgu()
+        return alga
+    def PirktProceduru(self,klients:'Klients', procedura: 'list[arstesana]') -> 'Pieraksts':
+        for darbinieks in self.darbinieki:
+            if type(darbinieks) is Medmasa:
+                if not darbinieks.kaduApskata:
+                    medmasa = darbinieks
+                    break
+        if 'medmasa' not in locals():
+            print('Kluda - nav pieejamas medmasas!')
+        else:
+            medmasa.kaduApkalpo = True
+            return Pieraksts(klients, procedura, medmasa, self.telpa)
+class Darbinieks:
+    alga: float = 100.0
+    def __init__(self) -> None:
+        pass
+    def IzvadamAlgu(self) -> float:
+        self.alga
+class Arsts(Darbinieks):
+    alga: float = 400.0
+    def __init__(self) -> None:
+            pass
+class Medmasa(Darbinieks):
+    papildstunduAlga: float = 10.0
+    alga: float = 200.0
+    kaduApskata: bool = False
+    def __init__(self) -> None:
+        super().__init__()  
+    def IzvadamAlgu(self) -> float:
+        return super().IzvadamAlgu()+self.papildstunduAlga
+class Prieksmets:
+    izmaksas: float = 0.0
+    nosaukums: str
+class Zales:
+    izmaksas: float = 0.0
+    nosaukums: str
+class Arstesana:
+    prieksmeti: 'list[Prieksmets]'
+    instrukcija: 'list[str]'
+    zales: 'list[Zales]'
+    def __init__(self) -> None:
+        self.prieksmeti = []
+        self.instrukcija = []
+        self.zales = []
+    def Aprekinamizmaksas(self) -> float:
+        kopIzmaksas = 0.0
+        for prieksmets in self.prieksmeti:
+            kopIzmaksas += prieksmets.izmaksas
+        for zales in self.zales:
+            kopIzmaksas += zales.izmaksas
+        return kopIzmaksas
+
+class Procedura:
+    prieksmeti: 'list[Prieksmets]'
+    zales: 'list[Zales]'
+    def __init__(self) -> None:
+        self.prieksmeti = []
+        self.zales = []
+    def AprekinamIzmaksas(self) -> float:
+        kopIzmaksas = 0.0
+        for prieksmets in self.prieksmeti:
+            kopIzmaksas += prieksmets.izmaksas
+        for zales in self.zales:
+            kopIzmaksas += zales.izmaksas
+        return kopIzmaksas
+class Klients:
+    pieejamaNauda: float = 0.0
+class Pieraksts:
+    klients: Klients
+    arstesana: 'list[Arstesana]'
+    medmasa: Medmasa
+    telpa: 'Telpa'
+    def __init__(self,klients: Klients, arstesana: 'list[Arstesana]', medmasa: Medmasa, telpa: 'Telpa' ) -> None:
+        self.klients = klients
+        self.arstesana = arstesana
+        self.medmasa = medmasa
+        self.telpa = telpa
+    def AprekinamIzmaksas(self) -> float:
+        kopIzmaksas = 0.0
+        for arstesana in self.arstesana:
+            kopIzmaksas += arstesana.Aprekinamizmaksas()
+        return kopIzmaksas
+    def Izpildam(self) -> float:
+        izmaksas = self.AprekinamIzmaksas()
+        if self.klients.pieejamaNauda < izmaksas:
+            print('Klientam nav pietiekami lidzekli, lai iegadatos proceduru')
+        else:
+            self.klients.pieejamaNauda -= izmaksas
+        return self.telpa.Arstet(self.arstesana)
+class Telpa:
+    prieksmeti: 'dict[Prieksmets, int]'
+    def __init__(self) -> None:
+        self.prieksmeti = {}
+    def Arstet(self, procedura: 'list[Arstesana]') -> 'list[Procedura]':
+        sagatavotaProcedura = []
+        for arstesana in procedura:
+            for prieksmeti in arstesana.prieksmeti:
+                if self.prieksmeti[prieksmeti] < 1:
+                    print('nepietiek prieksmetu, lai veiktu proceduru')
+            for prieksmeti in arstesana.prieksmeti:
+                self.prieksmeti[prieksmeti] -= 1
+            sagProcedura = Procedura()
+            sagProcedura.prieksmeti = arstesana.prieksmeti
+            sagatavotaProcedura.append(sagProcedura)
+        return sagatavotaProcedura
+class IzrakstitaRecepte(Arstesana):
+    zales: 'dict[Zales, int]'
+    def __init__(self) -> None:
+       self.zales = {}
+    def Izrakstit(self, procedura: 'list[Arstesana]') -> 'list[Procedura]':
+        gatavasZales = []
+        for asrtesana in procedura:
+            for zales in asrtesana.zales:
+                if self.zales[zales] < 1:
+                    print('nepietiek zalu, lai tas izrakstitu!')
+            for zales in asrtesana.zales:
+                    self.zales[zales] -= 1
+            gatZales = Zales()
+            gatZales.zales = asrtesana.zales
+            gatavasZales.append(gatZales)
+        return gatavasZales
+class Aptieka:
+    izrakstitarecepte: 'list[IzrakstitaRecepte, int]'
+    def __init__(self) -> None:
+        self.izrakstitarecepte = []
+        self.zales = []
+    def AprekinamIzmaksas(self) -> float:
+        kopIzmaksas = 0.0
+        for zales in self.zales:
+            kopIzmaksas += zales.izmaksas
+        return kopIzmaksas
+
+plaksteri = Prieksmets()
+plaksteri.izmaksas = 0.25
+plaksteri.nosaukums = 'Plāksteri'
+ledus = Prieksmets()
+ledus.izmaksas = 0.1
+ledus.nosaukums = 'Ledus'
+telpa = Telpa()
+telpa.prieksmeti[plaksteri] = 5
+telpa.prieksmeti[ledus] = 6
+
+ibumetin = Zales()
+ibumetin.izmaksas = 10
+ibumetin.nosaukums = 'Ibumetin'
+aptieka = IzrakstitaRecepte()
+aptieka.zales[ibumetin] = 6
+
+
+Karlis = Arsts()
+Anna = Medmasa()
+slimnica = Slimnica(telpa)
+slimnica.darbinieki.append(Karlis)
+slimnica.darbinieki.append(Anna)
+Anna.papildstunduAlga = 100
+
+arstesana = Arstesana()
+arstesana.prieksmeti.append(plaksteri)
+arstesana.prieksmeti.append(ledus)
+arstesana.instrukcija.append('uzlikt ledu, plāksteri un izrkastīt zāles')
+arstesana.zales.append(ibumetin)
+
+klients = Klients()
+klients.pieejamaNauda = 300.0
+
+pieraksts = slimnica.PirktProceduru(klients, [arstesana])
+procedura = pieraksts.Izpildam()
+print(f"Klients pasūtīja {len(procedura)} procedūru. Klientam pāri palika {klients.pieejamaNauda}!")
+for prieksmeti in slimnica.telpa.prieksmeti:
+    print(f"Palika prieksmeti{prieksmeti.nosaukums}: {slimnica.telpa.prieksmeti[prieksmeti]}")
+for zales in aptieka.zales:
+    print(f"Palika zāles {zales.nosaukums}: {aptieka.zales[zales]-1}")
+
+
